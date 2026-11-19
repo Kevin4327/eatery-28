@@ -77,7 +77,24 @@ Open `http://localhost:8000/` in any browser.
 
 ---
 
-## 5. Deployment Checklist (cPanel / Shared Hosting)
+## 5. Deployment Options
+
+### A. GitHub Pages Deployment (Automated)
+
+The project includes an automated deployment workflow at `.github/workflows/deploy.yml`:
+
+1. Create a new public repository on GitHub named `eatery-28` under your account (`Kevin4327`).
+2. Push the code:
+   ```bash
+   git push -u origin main
+   ```
+3. In your GitHub repository, go to **Settings &rarr; Pages**.
+4. Under **Build and deployment &rarr; Source**, select **GitHub Actions** (or **Deploy from a branch** &rarr; `main` / root).
+5. Your website will be live at: `https://kevin4327.github.io/eatery-28/`
+
+---
+
+## 6. Deployment Checklist (cPanel / Shared Hosting)
 
 1. Verify all client confirmation items in `CONTENT-NEEDED.md`.
 2. Swap development images in `assets/images/temp/` with client-provided high-resolution photography.

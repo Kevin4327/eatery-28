@@ -1,0 +1,17 @@
+{
+  "name": "Coffee Bar – Eatery 28",
+  "short_name": "Eatery 28",
+  "description": "Independent coffee bar and café on Waterfield Drive, Nuwara Eliya, Sri Lanka.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FCFBF7",
+  "theme_color": "#E63946",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,1811 @@
+/* ==========================================================================
+   Coffee Bar – Eatery 28 | Single-Page Café Website Stylesheet
+   Refined Coffee Shop Design Mockup Implementation
+   Aesthetic, Warm, Clean, Editorial & Responsive · Nuwara Eliya, Sri Lanka
+   Zero Emojis · Clean SVG Vector Icons · WCAG AAA Contrast
+   ========================================================================== */
+
+/* --- 1. Design Tokens & Mockup Color Palette --- */
+:root {
+  /* Mockup Swatches */
+  --color-espresso-dark: #1E140F;       /* Primary dark coffee background */
+  --color-espresso-medium: #2B1D16;     /* Rich roast card background */
+  --color-espresso-soft: #3D2B22;       /* Deep coffee border/accents */
+  
+  --color-caramel-brown: #9C6644;       /* Warm roast caramel button / CTA */
+  --color-caramel-hover: #7E4E30;
+  --color-caramel-light: #F2E8DF;
+
+  --color-bg-cream: #F7F3EE;            /* Warm oat / cream main canvas */
+  --color-bg-alt: #F0EAE1;              /* Soft contrasting latte section */
+  --color-surface-white: #FFFFFF;       /* Crisp card background */
+  --color-surface-hover: #FAF7F2;
+
+  --color-border: #E5DBD0;              /* Soft warm divider */
+  --color-border-dark: #CFC2B4;
+
+  --color-text-title: #241813;          /* Dark roast typography */
+  --color-text-body: #615248;           /* Legible warm gray-brown */
+  --color-text-muted: #8E7E73;          /* Secondary metadata */
+
+  --color-olive-accent: #606C5D;        /* Mockup sage / highland olive */
+  --color-olive-soft: #EDF1EC;
+
+  --color-strawberry-accent: #C93B4A;   /* Refined berry red for Coming Soon */
+  --color-strawberry-soft: #FBF0F1;
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-script: 'Caveat', cursive, sans-serif;
+
+  /* Fluid Type Scale */
+  --font-size-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+  --font-size-sm: clamp(0.85rem, 0.82rem + 0.2vw, 0.9375rem);
+  --font-size-base: clamp(0.975rem, 0.94rem + 0.25vw, 1.0625rem);
+  --font-size-lg: clamp(1.15rem, 1.08rem + 0.35vw, 1.28rem);
+  --font-size-xl: clamp(1.35rem, 1.25rem + 0.6vw, 1.65rem);
+  --font-size-2xl: clamp(1.65rem, 1.45rem + 1vw, 2.15rem);
+  --font-size-3xl: clamp(2rem, 1.7rem + 1.6vw, 2.75rem);
+  --font-size-4xl: clamp(2.45rem, 2.1rem + 2.4vw, 3.85rem);
+
+  /* Elevation & Shadows */
+  --shadow-sm: 0 2px 8px rgba(30, 20, 15, 0.04);
+  --shadow-md: 0 8px 24px rgba(30, 20, 15, 0.08);
+  --shadow-lg: 0 16px 48px rgba(30, 20, 15, 0.14);
+  --shadow-card: 0 4px 18px rgba(30, 20, 15, 0.05);
+
+  /* Layout & Spacing */
+  --site-max-width: 1220px;
+  --site-padding: clamp(1.25rem, 4vw, 2.5rem);
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- 2. CSS Reset & Document Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 100%;
+  line-height: 1.65;
+  color: var(--color-text-body);
+  background-color: var(--color-bg-cream);
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.25rem;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, picture, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+/* Accessibility Focus States */
+:focus-visible {
+  outline: 2px solid var(--color-caramel-brown);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1.5rem;
+  z-index: 9999;
+  background: var(--color-espresso-dark);
+  color: #FFFFFF;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 1.5rem;
+}
+
+/* --- 3. Layout Utilities --- */
+.container {
+  width: 100%;
+  max-width: var(--site-max-width);
+  margin-inline: auto;
+  padding-inline: var(--site-padding);
+}
+
+.section-padding {
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+.bg-alt {
+  background-color: var(--color-bg-alt);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.section-header {
+  max-width: 680px;
+  margin-inline: auto;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-kicker {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-caramel-brown);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-title);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.85rem;
+}
+
+.section-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-text-body);
+  line-height: 1.6;
+}
+
+/* --- 4. Button Components (Matches Mockup Styles) --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background-color: var(--color-caramel-brown);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(156, 102, 68, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-caramel-hover);
+  box-shadow: 0 6px 20px rgba(156, 102, 68, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--color-surface-white);
+  color: var(--color-text-title);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bg-cream);
+  border-color: var(--color-border-dark);
+  transform: translateY(-1px);
+}
+
+.btn-outline-light {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-nav-ghost {
+  color: #FFFFFF;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+.btn-nav-ghost:hover {
+  color: var(--color-caramel-light);
+}
+
+.btn-whatsapp {
+  background-color: #25D366;
+  color: #FFFFFF;
+}
+
+.btn-whatsapp:hover {
+  background-color: #20BD5A;
+  transform: translateY(-1px);
+}
+
+.btn-sm {
+  padding: 0.55rem 1.25rem;
+  font-size: var(--font-size-xs);
+}
+
+.btn-lg {
+  padding: 1rem 2.25rem;
+  font-size: var(--font-size-base);
+}
+
+.btn-icon-svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
+}
+
+/* --- 5. Site Header (Matches Mockup's Dark/Coffee Header) --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(30, 20, 15, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+}
+
+/* Brand Logo (Matches "The Bean Haven" Mockup Style) */
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+}
+
+.brand-logo-mark {
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-text-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.brand-tagline {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-caramel-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Navigation List */
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  list-style: none;
+}
+
+.nav-link {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+  position: relative;
+  padding-block: 0.35rem;
+  transition: color var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: #FFFFFF;
+}
+
+.nav-link.active {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-caramel-brown);
+  border-radius: var(--radius-pill);
+}
+
+.nav-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mobile-nav-toggle {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-icon {
+  width: 1.35rem;
+  height: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.toggle-icon span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.mobile-nav-actions {
+  display: none;
+}
+
+/* --- 6. Hero Section (Moody Editorial Coffee Atmosphere) --- */
+.hero-section {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-espresso-dark);
+  color: #FFFFFF;
+  overflow: hidden;
+}
+
+.hero-carousel-viewport {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-carousel-viewport .carousel-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.hero-carousel-viewport .carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 800ms ease, visibility 800ms ease;
+}
+
+.hero-carousel-viewport .carousel-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.hero-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg, 
+    rgba(20, 13, 9, 0.92) 0%, 
+    rgba(20, 13, 9, 0.75) 45%, 
+    rgba(20, 13, 9, 0.4) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content-container {
+  position: relative;
+  z-index: 2;
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.hero-copy-block {
+  max-width: 620px;
+}
+
+.hero-kicker {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-caramel-light);
+  margin-bottom: 1.15rem;
+}
+
+.hero-headline {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-4xl);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+  margin-bottom: 1.5rem;
+}
+
+.hero-headline-sub {
+  color: #FAF4EE;
+  display: block;
+}
+
+.hero-lead {
+  font-size: var(--font-size-base);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 2.25rem;
+  max-width: 48ch;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Script Accent (Matches Mockup's 'Coffee Food Friends' in Top Right of Table) */
+.hero-script-badge {
+  position: absolute;
+  right: var(--site-padding);
+  top: 32%;
+  font-family: var(--font-script);
+  font-size: 2.6rem;
+  line-height: 1.1;
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  transform: rotate(-6deg);
+}
+
+/* Carousel Controls (Minimalist & Accessible) */
+.hero-carousel-controls {
+  position: absolute;
+  bottom: 2rem;
+  right: var(--site-padding);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(20, 13, 9, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.carousel-btn {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  transition: background-color var(--transition-fast);
+}
+
+.carousel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.carousel-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.carousel-indicators {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-inline: 0.25rem;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  transition: all var(--transition-fast);
+}
+
+.carousel-dot.is-active {
+  background-color: var(--color-caramel-brown);
+  width: 22px;
+  border-radius: var(--radius-pill);
+}
+
+/* --- 7. 4-Pillar Feature Strip (Directly Replicating Mockup Below Hero) --- */
+.feature-strip-section {
+  position: relative;
+  z-index: 10;
+  margin-top: -2.5rem;
+}
+
+.feature-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: var(--color-surface-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.feature-strip-card {
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-right: 1px solid var(--color-border);
+}
+
+.feature-strip-card:last-child {
+  border-right: none;
+}
+
+.feature-strip-icon-box {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-cream);
+  color: var(--color-caramel-brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.feature-strip-title {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-title);
+  margin-bottom: 0.15rem;
+}
+
+.feature-strip-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* --- 8. Menu Section ("Popular Picks" & Clean Product Cards) --- */
+.menu-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.menu-section-header-link {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-caramel-brown);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.menu-section-header-link:hover {
+  color: var(--color-caramel-hover);
+}
+
+.client-placeholder-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: 2.25rem;
+  padding: 0.95rem 1.35rem;
+  background-color: #FFF9EE;
+  border: 1px solid #F3E0BA;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  color: #70541C;
+  line-height: 1.5;
+}
+
+.alert-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex-shrink: 0;
+  color: #A67B25;
+  margin-top: 0.1rem;
+}
+
+/* Menu Category Tabs */
+.menu-tabs-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 2.5rem;
+}
+
+.menu-tab-btn {
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-white);
+  color: var(--color-text-body);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.menu-tab-btn:hover {
+  background-color: var(--color-bg-cream);
+  color: var(--color-text-title);
+}
+
+.menu-tab-btn.is-active {
+  background-color: var(--color-espresso-dark);
+  color: #FFFFFF;
+  border-color: var(--color-espresso-dark);
+}
+
+.menu-tab-panel {
+  display: block;
+}
+
+.menu-tab-panel[hidden] {
+  display: none;
+}
+
+/* Product Cards Grid (Matches Mockup's 4-column Popular Picks cards) */
+.menu-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.mockup-product-card {
+  background-color: var(--color-surface-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.mockup-product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.product-card-img-frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: var(--color-bg-cream);
+}
+
+.product-card-img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.mockup-product-card:hover .product-card-img-frame img {
+  transform: scale(1.04);
+}
+
+.product-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background-color: var(--color-caramel-brown);
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+
+.product-card-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text-title);
+  margin-bottom: 0.35rem;
+}
+
+.product-description {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-body);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.product-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-bg-cream);
+}
+
+.product-tag-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-caramel-brown);
+}
+
+/* Circular Icon Button (Matches Mockup's cart/arrow button) */
+.product-icon-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--color-caramel-brown);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(156, 102, 68, 0.3);
+}
+
+.menu-dietary-notice {
+  margin-top: 2.5rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* --- 9. About Us Section (Matches Mockup Split Layout) --- */
+.mockup-about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.about-visual-pane {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.about-main-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* Script Overlay Badge (Matches Mockup's "A Space for Good Moments" script on photo) */
+.about-script-overlay {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  font-family: var(--font-script);
+  font-size: 2.35rem;
+  line-height: 1.05;
+  color: #FFFFFF;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  transform: rotate(-4deg);
+}
+
+.about-lead-text {
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: var(--color-text-title);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.about-sub-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-body);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.about-icons-row {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-block: 1.25rem;
+  border-block: 1px solid var(--color-border);
+}
+
+.about-mini-pillar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-title);
+}
+
+.about-mini-pillar svg {
+  color: var(--color-caramel-brown);
+}
+
+/* --- 10. Lavazza Spotlight Banner --- */
+.lavazza-spotlight {
+  background-color: var(--color-bg-cream);
+}
+
+.lavazza-banner-card {
+  background: linear-gradient(135deg, #241813 0%, #160E0A 100%);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-lg);
+}
+
+.lavazza-banner-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.lavazza-badge {
+  background-color: var(--color-caramel-brown);
+  color: #FFFFFF;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+}
+
+.lavazza-sub-badge {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FAF4EE;
+  font-size: var(--font-size-xs);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.lavazza-banner-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.lavazza-banner-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin-bottom: 1rem;
+}
+
+.lavazza-banner-desc {
+  font-size: var(--font-size-base);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+
+.lavazza-banner-disclaimer {
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 2rem;
+}
+
+.lavazza-metrics-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.lavazza-metric strong {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.lavazza-metric span {
+  font-size: 0.75rem;
+  color: var(--color-caramel-light);
+}
+
+.lavazza-banner-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.lavazza-visual-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+  max-width: 420px;
+}
+
+.lavazza-visual-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.lavazza-corner-tag {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(20, 13, 9, 0.9);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+.tag-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 0.08em;
+}
+
+.tag-city {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--color-caramel-light);
+  letter-spacing: 0.05em;
+}
+
+/* --- 11. Gallery Section --- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  background-color: var(--color-bg-alt);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 450ms ease;
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20, 13, 9, 0.88) 0%, rgba(20, 13, 9, 0.2) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: #FFFFFF;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.gallery-item:hover img,
+.gallery-item:focus img {
+  transform: scale(1.05);
+}
+
+.gallery-item:hover .gallery-overlay,
+.gallery-item:focus .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-tag {
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: var(--color-caramel-brown);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.35rem;
+}
+
+.gallery-caption-text {
+  font-size: var(--font-size-xs);
+  color: #F7F3EE;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Accessible Lightbox Modal */
+.lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.lightbox-modal[aria-hidden="false"] {
+  display: flex;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(18, 12, 8, 0.94);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox-container {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-content {
+  background-color: #000000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox-image {
+  max-height: 72vh;
+  width: auto;
+  object-fit: contain;
+}
+
+.lightbox-caption {
+  padding: 0.75rem 1.25rem;
+  color: #FFFFFF;
+  font-size: var(--font-size-xs);
+  text-align: center;
+  background-color: var(--color-espresso-dark);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+  color: #FFFFFF;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast);
+}
+
+.lightbox-close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #FFFFFF;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: rgba(20, 13, 9, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast);
+}
+
+.lightbox-nav:hover {
+  background-color: var(--color-caramel-brown);
+}
+
+.lightbox-prev {
+  left: -3.5rem;
+}
+
+.lightbox-next {
+  right: -3.5rem;
+}
+
+/* --- 12. Coming Soon: Strawberry Experience --- */
+.mockup-strawberry-card {
+  background-color: var(--color-surface-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  box-shadow: var(--shadow-card);
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.strawberry-pill-badge {
+  display: inline-block;
+  background-color: var(--color-strawberry-soft);
+  color: var(--color-strawberry-accent);
+  border: 1px solid rgba(201, 59, 74, 0.25);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 0.95rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 1.25rem;
+}
+
+.strawberry-card-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-title);
+  margin-bottom: 1rem;
+}
+
+.strawberry-card-desc {
+  font-size: var(--font-size-base);
+  color: var(--color-text-body);
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
+}
+
+.strawberry-plans-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.strawberry-plan-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.plan-icon-wrap {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-strawberry-soft);
+  color: var(--color-strawberry-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.strawberry-plan-item h4 {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-title);
+  margin-bottom: 0.25rem;
+}
+
+.strawberry-plan-item p {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-body);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.strawberry-disclaimer-note {
+  background-color: var(--color-bg-cream);
+  border-left: 3px solid var(--color-caramel-brown);
+  padding: 0.85rem 1.15rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-body);
+  line-height: 1.55;
+}
+
+.strawberry-image-frame {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.strawberry-image-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.strawberry-image-tag {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: rgba(20, 13, 9, 0.85);
+  backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* --- 13. Google Reviews Section --- */
+.reviews-box {
+  background-color: var(--color-surface-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 3rem);
+  box-shadow: var(--shadow-card);
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+.google-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 50%;
+  background-color: var(--color-bg-cream);
+  border: 1px solid var(--color-border);
+  margin-bottom: 1.25rem;
+}
+
+.reviews-lead {
+  font-size: var(--font-size-base);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  max-width: 58ch;
+  margin-inline: auto;
+  margin-bottom: 1.5rem;
+}
+
+.reviews-guarantee-note {
+  background-color: var(--color-bg-cream);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.5rem;
+  max-width: 54ch;
+  margin-inline: auto;
+  margin-bottom: 2rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-body);
+  line-height: 1.5;
+}
+
+.reviews-action-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.reviews-footnote {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* --- 14. Contact Section (Matches Mockup Contact Us Layout) --- */
+.mockup-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: stretch;
+}
+
+.contact-info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-card-item {
+  background-color: var(--color-surface-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  gap: 1.15rem;
+  align-items: flex-start;
+}
+
+.contact-svg-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-cream);
+  color: var(--color-caramel-brown);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-card-content h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text-title);
+  margin-bottom: 0.35rem;
+}
+
+.contact-address-text {
+  font-style: normal;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  margin-bottom: 0.65rem;
+}
+
+.contact-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-caramel-brown);
+}
+
+.contact-text-link:hover {
+  color: var(--color-caramel-hover);
+}
+
+.contact-tel-number {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-text-title);
+  letter-spacing: 0.02em;
+  margin-block: 0.25rem 0.65rem;
+}
+
+.contact-tel-number:hover {
+  color: var(--color-caramel-brown);
+}
+
+.contact-button-row {
+  margin-top: 0.35rem;
+}
+
+.contact-sub-note {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.walk-in-badge {
+  display: inline-block;
+  background-color: var(--color-olive-soft);
+  color: var(--color-olive-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-pill);
+}
+
+/* Map Frame */
+.contact-map-panel {
+  display: flex;
+}
+
+.mockup-map-frame {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+}
+
+.mockup-map-frame iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  display: block;
+}
+
+.mockup-map-caption {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--color-text-title);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+/* --- 15. Site Footer (Matches Mockup Dark Rich Theme) --- */
+.site-footer {
+  background-color: var(--color-espresso-dark);
+  color: #D4C9BF;
+  padding-top: clamp(3.5rem, 6vw, 5rem);
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand-link .brand-title {
+  color: #FFFFFF;
+}
+
+.footer-brand-link .brand-tagline {
+  color: var(--color-caramel-light);
+}
+
+.footer-desc {
+  font-size: var(--font-size-xs);
+  color: #A39488;
+  line-height: 1.6;
+  margin-top: 1rem;
+  max-width: 36ch;
+}
+
+.footer-heading {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+  margin-bottom: 1.25rem;
+}
+
+.footer-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.footer-nav-list a {
+  font-size: var(--font-size-xs);
+  color: #B5A79E;
+  transition: color var(--transition-fast);
+}
+
+.footer-nav-list a:hover {
+  color: var(--color-caramel-light);
+}
+
+.footer-address {
+  font-style: normal;
+  font-size: var(--font-size-xs);
+  line-height: 1.6;
+  color: #B5A79E;
+  margin-bottom: 1.25rem;
+}
+
+.footer-address a {
+  display: block;
+  color: #FFFFFF;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+.footer-badge-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-pill {
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #FAF4EE;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom {
+  padding-block: 1.75rem;
+  font-size: 0.75rem;
+  color: #8C7E74;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* --- 16. Responsive Breakpoints --- */
+@media (max-width: 1024px) {
+  .feature-strip-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feature-strip-card:nth-child(2) {
+    border-right: none;
+  }
+
+  .feature-strip-card:nth-child(1),
+  .feature-strip-card:nth-child(2) {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .menu-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mockup-about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lavazza-banner-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lavazza-banner-visual {
+    order: -1;
+  }
+
+  .mockup-strawberry-card {
+    grid-template-columns: 1fr;
+  }
+
+  .mockup-contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-script-badge {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .mobile-nav-toggle {
+    display: flex;
+  }
+
+  .nav-menu-wrapper {
+    position: fixed;
+    top: 5rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-espresso-dark);
+    padding: 2rem var(--site-padding);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: translateX(100%);
+    transition: transform var(--transition-smooth);
+    z-index: 999;
+    overflow-y: auto;
+  }
+
+  .nav-menu-wrapper.is-open {
+    transform: translateX(0);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .nav-link {
+    font-size: var(--font-size-base);
+    display: block;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .mobile-nav-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-cta-group {
+    display: none;
+  }
+
+  .lightbox-prev {
+    left: 0.5rem;
+  }
+
+  .lightbox-next {
+    right: 0.5rem;
+  }
+
+  .lightbox-close {
+    top: -2.5rem;
+    right: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .feature-strip-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-strip-card {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .feature-strip-card:last-child {
+    border-bottom: none;
+  }
+
+  .menu-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .about-icons-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .menu-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

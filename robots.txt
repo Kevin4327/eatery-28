@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Canonical Sitemap URL (Update domain to production host upon launch)
+Sitemap: https://eatery28.lk/sitemap.xml
